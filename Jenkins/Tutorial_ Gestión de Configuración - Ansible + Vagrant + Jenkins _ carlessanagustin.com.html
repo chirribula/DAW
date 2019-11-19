@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<!-- saved from url=(0101)http://www.carlessanagustin.com/2015/08/20/tutorial-gestion-de-configuracion-ansible-vagrant-jenkins/ -->
+<html lang="es-ES"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Tutorial: Gestión de Configuración - Ansible + Vagrant + Jenkins | carlessanagustin.com</title>
+	<meta name="description" content="viajando por la vida; fotografía, binario y otros intereses">
+    <link rel="pingback" href="http://www.carlessanagustin.com/xmlrpc.php">
+    
+    <!-- styles -->
+	<link href="./Tutorial_ Gestión de Configuración - Ansible + Vagrant + Jenkins _ carlessanagustin.com_files/css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" media="all" href="./Tutorial_ Gestión de Configuración - Ansible + Vagrant + Jenkins _ carlessanagustin.com_files/reset.css">
+
+     
+   
+       	<link rel="stylesheet" href="./Tutorial_ Gestión de Configuración - Ansible + Vagrant + Jenkins _ carlessanagustin.com_files/custom.css"> 
+          <link rel="stylesheet" href="./Tutorial_ Gestión de Configuración - Ansible + Vagrant + Jenkins _ carlessanagustin.com_files/bootstrap-code.css"> 
+        	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"> 
+      	<link rel="stylesheet" type="text/css" media="handheld, only screen and (max-width: 480px), only screen and (max-device-width: 480px)" href="./Tutorial_ Gestión de Configuración - Ansible + Vagrant + Jenkins _ carlessanagustin.com_files/mobile.css">
+        
+ 	<!-- wp head -->
+	
+<!-- All in One SEO Pack 2.2.6.2 by Michael Torbert of Semper Fi Web Design[297,404] -->
+<link rel="author" href="https://plus.google.com/+CarlesSanAgustinIT/posts">
+<meta name="description" itemprop="description" content="Video tutorial: Proceso de creación de Playbooks de Ansible para la instalación automática de Jenkins CI en máquinas Ubuntu Linux. Primero realizo el proceso en">
+
+<meta name="keywords" itemprop="keywords" content="amazon,ansible,aws,git,github,jenkins,sourcetree,ubuntu,vagrant,virtualbox,tutorial,configuration management,mi blog">
+
+<link rel="canonical" href="http://www.carlessanagustin.com/2015/08/20/tutorial-gestion-de-configuracion-ansible-vagrant-jenkins/">
+		<script type="text/javascript" async="" src="./Tutorial_ Gestión de Configuración - Ansible + Vagrant + Jenkins _ carlessanagustin.com_files/ga.js.descarga"></script><script src="./Tutorial_ Gestión de Configuración - Ansible + Vagrant + Jenkins _ carlessanagustin.com_files/cb=gapi.loaded_0" async=""></script><script type="text/javascript" async="" src="./Tutorial_ Gestión de Configuración - Ansible + Vagrant + Jenkins _ carlessanagustin.com_files/plusone.js.descarga" gapi_processed="true"></script><script type="text/javascript" async="" src="./Tutorial_ Gestión de Configuración - Ansible + Vagrant + Jenkins _ carlessanagustin.com_files/ga.js.descarga"></script><script type="text/javascript">
+		  var _gaq = _gaq || [];
+		  _gaq.push(['_setAccount', 'UA-36546117-1']);
+		  _gaq.push(['_trackPageview']);
+		  (function() {
+		    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		  })();
+		</script>
+<!-- /all in one seo pack -->
+<link rel="alternate" type="application/rss+xml" title="carlessanagustin.com » Feed" href="http://www.carlessanagustin.com/feed/">
+<link rel="alternate" type="application/rss+xml" title="carlessanagustin.com » RSS de los comentarios" href="http://www.carlessanagustin.com/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="carlessanagustin.com » Tutorial: Gestión de Configuración – Ansible + Vagrant + Jenkins RSS de los comentarios" href="http://www.carlessanagustin.com/2015/08/20/tutorial-gestion-de-configuracion-ansible-vagrant-jenkins/feed/">
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"http:\/\/s.w.org\/images\/core\/emoji\/72x72\/","ext":".png","source":{"concatemoji":"http:\/\/www.carlessanagustin.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.2.1"}};
+			!function(a,b,c){function d(a){var c=b.createElement("canvas"),d=c.getContext&&c.getContext("2d");return d&&d.fillText?(d.textBaseline="top",d.font="600 32px Arial","flag"===a?(d.fillText(String.fromCharCode(55356,56812,55356,56807),0,0),c.toDataURL().length>3e3):(d.fillText(String.fromCharCode(55357,56835),0,0),0!==d.getImageData(16,16,1,1).data[0])):!1}function e(a){var c=b.createElement("script");c.src=a,c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f;c.supports={simple:d("simple"),flag:d("flag")},c.supports.simple&&c.supports.flag||(f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script><script src="./Tutorial_ Gestión de Configuración - Ansible + Vagrant + Jenkins _ carlessanagustin.com_files/wp-emoji-release.min.js.descarga" type="text/javascript"></script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel="stylesheet" id="yarppWidgetCss-css" href="./Tutorial_ Gestión de Configuración - Ansible + Vagrant + Jenkins _ carlessanagustin.com_files/widget.css" type="text/css" media="all">
+<link rel="stylesheet" id="sociablecss-css" href="./Tutorial_ Gestión de Configuración - Ansible + Vagrant + Jenkins _ carlessanagustin.com_files/sociable.css" type="text/css" media="all">
+<link rel="stylesheet" id="contact-form-7-css" href="./Tutorial_ Gestión de Configuración - Ansible + Vagrant + Jenkins _ carlessanagustin.com_files/styles.css" type="text/css" media="all">
+<link rel="stylesheet" id="yarpp-thumbnails-yarpp-thumbnail-css" href="./Tutorial_ Gestión de Configuración - Ansible + Vagrant + Jenkins _ carlessanagustin.com_files/styles_thumbnails.css.php" type="text/css" media="all">
+<script type="text/javascript" src="./Tutorial_ Gestión de Configuración - Ansible + Vagrant + Jenkins _ carlessanagustin.com_files/jquery.js.descarga"></script>
+<script type="text/javascript" src="./Tutorial_ Gestión de Configuración - Ansible + Vagrant + Jenkins _ carlessanagustin.com_files/jquery-migrate.min.js.descarga"></script>
+<script type="text/javascript" src="./Tutorial_ Gestión de Configuración - Ansible + Vagrant + Jenkins _ carlessanagustin.com_files/sociable.js.descarga"></script>
+<script type="text/javascript" src="./Tutorial_ Gestión de Configuración - Ansible + Vagrant + Jenkins _ carlessanagustin.com_files/vuible.js.descarga"></script>
+<script type="text/javascript" src="./Tutorial_ Gestión de Configuración - Ansible + Vagrant + Jenkins _ carlessanagustin.com_files/addtofavorites.js.descarga"></script>
+<link rel="prev" title="Adoptar DevOps?" href="http://www.carlessanagustin.com/2015/07/13/adoptar-devops/">
+<link rel="next" title="Consultoria en Immfly de Integración Continua y DevOps" href="http://www.carlessanagustin.com/2015/09/10/consultoria-en-immfly-de-integracion-continua-y-devops/">
+<link rel="shortlink" href="http://www.carlessanagustin.com/?p=2554">
+	<link href="./Tutorial_ Gestión de Configuración - Ansible + Vagrant + Jenkins _ carlessanagustin.com_files/SyntaxHighlighter.css" type="text/css" rel="stylesheet">
+	<!-- <meta name="NextGEN" version="2.0.79" /> -->
+<script type="text/javascript">var base_url_sociable = 'http://www.carlessanagustin.com/wp-content/plugins/sociable/'</script><script type="text/javascript" src="./Tutorial_ Gestión de Configuración - Ansible + Vagrant + Jenkins _ carlessanagustin.com_files/plusone.js(1).descarga" gapi_processed="true"></script><style type="text/css">
+.qtranxs_flag_es {background-image: url(http://www.carlessanagustin.com/wp-content/plugins/qtranslate/flags/es.png); background-repeat: no-repeat;}
+.qtranxs_flag_en {background-image: url(http://www.carlessanagustin.com/wp-content/plugins/qtranslate/flags/gb.png); background-repeat: no-repeat;}
+</style>
+<link hreflang="es" href="http://www.carlessanagustin.com/es/2015/08/20/tutorial-gestion-de-configuracion-ansible-vagrant-jenkins/" rel="alternate">
+<link hreflang="en" href="http://www.carlessanagustin.com/en/2015/08/20/tutorial-gestion-de-configuracion-ansible-vagrant-jenkins/" rel="alternate">
+<link hreflang="x-default" href="http://www.carlessanagustin.com/2015/08/20/tutorial-gestion-de-configuracion-ansible-vagrant-jenkins/" rel="alternate">
+
+<!-- BEGIN GADWP v4.7 Classic Tracking - https://deconf.com/google-analytics-dashboard-wordpress/ -->
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36546117-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+<!-- END GADWP Classic Tracking -->
+
+    
+<!-- // START: carles -->
+<link href="http://www.carlessanagustin.com/wp-content/themes/gridly-carles/images/favicon_32.ico" rel="shortcut icon">
+<!-- // END: carles -->
+<link rel="stylesheet" id="yarppRelatedCss-css" href="./Tutorial_ Gestión de Configuración - Ansible + Vagrant + Jenkins _ carlessanagustin.com_files/related.css" type="text/css" media="all">
+</head>
+
+<body class="single single-post postid-2554 single-format-standard">
+	
+<div id="wrap">
+	<div id="header">
+        
+    	<div id="logo">
+        	<a href="http://www.carlessanagustin.com/" title="carlessanagustin.com" rel="home">
+            
+                                  	 <img src="./Tutorial_ Gestión de Configuración - Ansible + Vagrant + Jenkins _ carlessanagustin.com_files/7segments1.png" alt="carlessanagustin.com">
+                             </a>
+            
+       </div>
+        
+                
+         		 <div id="nav"><div class="menu-principal-container"><ul id="menu-principal" class="menu"><li id="menu-item-12" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-12"><a href="http://www.carlessanagustin.com/sobre-mi/">Sobre mi</a></li>
+<li id="menu-item-1103" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1103"><a href="http://www.carlessanagustin.com/category/portfolio/my-work/">Mi Trabajo</a></li>
+<li id="menu-item-1102" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-1102"><a href="http://www.carlessanagustin.com/category/blog/">Mi Blog</a></li>
+<li id="menu-item-2330" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2330"><a href="http://www.carlessanagustin.com/mi-tv/">Mi TV</a></li>
+<li id="menu-item-11" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11"><a href="http://www.carlessanagustin.com/contacto/">Contacto</a></li>
+</ul></div></div>
+       
+   </div>
+<!-- // header -->           
+				
+           
+       
+   		<div id="post-2554" class="post-2554 post type-post status-publish format-standard has-post-thumbnail hentry category-blog tag-ansible tag-aws tag-configuration-management tag-git tag-github tag-jenkins tag-sourcetree tag-tutorial tag-ubuntu tag-vagrant tag-virtualbox">
+						
+				<div class="gridly-image"><img width="600" height="398" src="./Tutorial_ Gestión de Configuración - Ansible + Vagrant + Jenkins _ carlessanagustin.com_files/Configuration-Management-diagram-title.jpg" class="attachment-detail-image wp-post-image" alt="Configuration Management - diagram"></div>
+                <div class="gridly-category"><p><a href="http://www.carlessanagustin.com/category/blog/" rel="category tag">Mi Blog</a></p></div>
+            				<!-- 
+				<div class="gridly-image">
+				<img width="310" height="232" src="/images/blog-310x232.png" class="attachment-summary-image wp-post-image" alt="BLOG" title="BLOG" />
+				</div>
+				<div class="gridly-category"><p></p></div>
+				-->
+                                
+
+       			<div class="gridly-copy">
+                <h1>Tutorial: Gestión de Configuración – Ansible + Vagrant + Jenkins</h1>
+                 <p class="gridly-date"> 20 agosto, 2015</p>
+           		 <p>Misión principal: <strong>Instalar Jenkins CI automáticamente en varios entornos.</strong></p>
+<p>Video tutorial sobre la gestión de configuración automática en entornos locales y remotos con Ansible.</p>
+<p>¿Que es <a href="http://www.sei.cmu.edu/productlines/frame_report/config.man.htm" target="_blank">gestión de configuración</a>?</p>
+<p><em>La gestión de la configuración (GC) se refiere a una disciplina para evaluar, coordinar, aprobar o desaprobar, y la implementación de los cambios en los artefactos que se utilizan para construir y mantener sistemas de software. Un artefacto puede ser una pieza de hardware o software o la documentación. GC permite el manejo de artefactos desde el concepto inicial hasta el diseño, implementación, prueba, línea de base, construcción, lanzamiento y mantenimiento.</em></p>
+<p>¿Que beneficios nos aporta la gestión de configuración?</p>
+<ul>
+<li>Reducir procesos repetitivos manuales.</li>
+<li>Crear una versión de software conocida, confiable, probada y repetible.</li>
+<li>Lograr una mayor confianza y seguridad en el equipo del proyecto.</li>
+<li>Incremento en la calidad de; procesos, producto y equipo.</li>
+<li>El aumento de la capacidad de respuesta y de la innovación</li>
+</ul>
+<h1>Tutorial: Requerimientos</h1>
+<p>Listado completo de <strong>software</strong> usado:</p>
+<ul>
+<li>VirtualBox – <a href="https://www.virtualbox.org/" target="_blank">https://www.virtualbox.org/</a></li>
+<li>Ansible – <a href="http://www.ansible.com/" target="_blank">http://www.ansible.com/</a></li>
+<li>Vagrant – <a href="https://www.vagrantup.com/" target="_blank">https://www.vagrantup.com/</a></li>
+<li>Ubuntu Linux – <a href="http://www.ubuntu.com/" target="_blank">http://www.ubuntu.com/</a></li>
+<li>Jenkins CI – <a href="https://jenkins-ci.org/" target="_blank">https://jenkins-ci.org/</a></li>
+<li>Nginx – <a href="http://nginx.org/" target="_blank">http://nginx.org/</a></li>
+<li>Amazon AWS – <a href="https://aws.amazon.com/" target="_blank">https://aws.amazon.com/</a></li>
+<li>Git – <a href="https://git-scm.com/" target="_blank">https://git-scm.com/</a></li>
+<li>Github – <a href="https://github.com/" target="_blank">https://github.com/</a></li>
+<li>SourceTree – <a href="https://www.sourcetreeapp.com/" target="_blank">https://www.sourcetreeapp.com/</a></li>
+</ul>
+<p>Esta es la <strong>arquitectura</strong> que sigo:</p>
+<p><a href="./Tutorial_ Gestión de Configuración - Ansible + Vagrant + Jenkins _ carlessanagustin.com_files/Configuration-Management-diagram.png"><img class="aligncenter wp-image-2561 size-full" src="./Tutorial_ Gestión de Configuración - Ansible + Vagrant + Jenkins _ carlessanagustin.com_files/Configuration-Management-diagram.png" alt="Configuration Management - Arquitectura" width="710" height="471"></a></p>
+<p>El contenido completo del tutorial lo compone:</p>
+<ul>
+<li><strong>Youtube – <a href="https://goo.gl/McB8Qe" target="_blank">https://goo.gl/McB8Qe</a></strong></li>
+<li><strong>Github – <a href="https://github.com/carlessanagustin/install-jenkins" target="_blank">https://github.com/carlessanagustin/install-jenkins</a></strong></li>
+<li><strong>Slideshare – <a href="http://www.slideshare.net/carlessanagustin/gestin-de-la-configuracin-jenkins-ci" target="_blank">http://www.slideshare.net/carlessanagustin/gestin-de-la-configuracin-jenkins-ci</a></strong></li>
+</ul>
+<h1>Tutorial: Paso a paso</h1>
+<h2>1. Arquitectura</h2>
+<p>(CM01b-intro-arquitectura)</p>
+<p><iframe width="710" height="533" src="./Tutorial_ Gestión de Configuración - Ansible + Vagrant + Jenkins _ carlessanagustin.com_files/videoseries.html" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen=""></iframe></p>
+<h2>2. Software usado</h2>
+<p>(CM01c-intro-software)</p>
+<p><iframe width="710" height="533" src="./Tutorial_ Gestión de Configuración - Ansible + Vagrant + Jenkins _ carlessanagustin.com_files/videoseries(1).html" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen=""></iframe></p>
+<h2>3. Configurar Vagrant con su Vagrantfile</h2>
+<p>(CM02-vagrant-init)</p>
+<p><iframe width="710" height="533" src="./Tutorial_ Gestión de Configuración - Ansible + Vagrant + Jenkins _ carlessanagustin.com_files/videoseries(2).html" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen=""></iframe></p>
+<h2>4. Crear el playbook de Ansible para la instalación de Jenkins CI</h2>
+<p>(CM03-ansible-playbook)</p>
+<p><iframe width="710" height="533" src="./Tutorial_ Gestión de Configuración - Ansible + Vagrant + Jenkins _ carlessanagustin.com_files/videoseries(3).html" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen=""></iframe></p>
+<h2>5. Refactorizar el playbook de Ansible con estructura de roles</h2>
+<p>(CM04-ansible-refactor-roles)</p>
+<p><iframe width="710" height="533" src="./Tutorial_ Gestión de Configuración - Ansible + Vagrant + Jenkins _ carlessanagustin.com_files/videoseries(4).html" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen=""></iframe></p>
+<h2>6. Redirección de puertos con Nginx</h2>
+<p>(CM05-nginx-jenkins-automatico)</p>
+<p><iframe width="710" height="533" src="./Tutorial_ Gestión de Configuración - Ansible + Vagrant + Jenkins _ carlessanagustin.com_files/videoseries(5).html" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen=""></iframe></p>
+<h2>7. Refactorizar el playbook de Ansible para aceptar Ubuntu 12</h2>
+<p>(CM06-refactoring-jdk7)</p>
+<p><iframe width="710" height="533" src="./Tutorial_ Gestión de Configuración - Ansible + Vagrant + Jenkins _ carlessanagustin.com_files/videoseries(6).html" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen=""></iframe></p>
+<h2>8. Instalar Jenkins CI automaticamente en SO de Amazon AWS</h2>
+<p>(CM07-aws-jenkins-automatico)</p>
+<p><iframe width="710" height="533" src="./Tutorial_ Gestión de Configuración - Ansible + Vagrant + Jenkins _ carlessanagustin.com_files/videoseries(7).html" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen=""></iframe></p>
+<h2>9. Compartir el código versionado en Github</h2>
+<p>(CM08-git_push-github)</p>
+<p><iframe width="710" height="533" src="./Tutorial_ Gestión de Configuración - Ansible + Vagrant + Jenkins _ carlessanagustin.com_files/videoseries(8).html" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen=""></iframe></p>
+<!-- Start Sociable --><div class="sociable"><ul class="clearfix"><li><a title="email" class="option1_16" style="background-position:-80px 0px" rel="nofollow" target="_blank" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to&amp;su=Tutorial%3A%20Gesti%C3%B3n%20de%20Configuraci%C3%B3n%20-%20Ansible%20%2B%20Vagrant%20%2B%20Jenkins&amp;body=http%3A%2F%2Fwww.carlessanagustin.com%2F2015%2F08%2F20%2Ftutorial-gestion-de-configuracion-ansible-vagrant-jenkins%2F&amp;ui=2&amp;tf=1&amp;shva=1"></a></li><li><a title="Twitter" class="option1_16" style="background-position:-144px -16px" rel="nofollow" target="_blank" href="http://twitter.com/intent/tweet?text=Tutorial%3A%20Gesti%C3%B3n%20de%20Configuraci%C3%B3n%20-%20Ansible%20%2B%20Vagrant%20%2B%20Jenkins%20-%20http%3A%2F%2Fwww.carlessanagustin.com%2F2015%2F08%2F20%2Ftutorial-gestion-de-configuracion-ansible-vagrant-jenkins%2F%20"></a></li><li><a title="Facebook" class="option1_16" style="background-position:-48px 0px" rel="nofollow" target="_blank" href="http://www.facebook.com/share.php?u=http%3A%2F%2Fwww.carlessanagustin.com%2F2015%2F08%2F20%2Ftutorial-gestion-de-configuracion-ansible-vagrant-jenkins%2F&amp;t=Tutorial%3A%20Gesti%C3%B3n%20de%20Configuraci%C3%B3n%20-%20Ansible%20%2B%20Vagrant%20%2B%20Jenkins"></a></li><li><a title="LinkedIn" class="option1_16" style="background-position:-144px 0px" rel="nofollow" target="_blank" href="http://www.linkedin.com/shareArticle?mini=true&amp;url=http%3A%2F%2Fwww.carlessanagustin.com%2F2015%2F08%2F20%2Ftutorial-gestion-de-configuracion-ansible-vagrant-jenkins%2F&amp;title=Tutorial%3A%20Gesti%C3%B3n%20de%20Configuraci%C3%B3n%20-%20Ansible%20%2B%20Vagrant%20%2B%20Jenkins&amp;source=carlessanagustin.com+viajando+por+la+vida%3B+fotograf%C3%ADa%2C+binario+y+otros+intereses&amp;summary=Video%20tutorial%3A%20Proceso%20de%20creaci%C3%B3n%20de%20Playbooks%20de%20Ansible%20para%20la%20instalaci%C3%B3n%20autom%C3%A1tica%20de%20Jenkins%20CI%20en%20m%C3%A1quinas%20Ubuntu%20Linux.%20Primero%20realizo%20el%20proceso%20en%20una%20m%C3%A1quina%20local%20configurando%20Vagrant%20para%20luego%20pasar%20a%20un%20entorno%20remoto%20en%20Amazon%20Web%20Services%20%28AWS%29."></a></li><li><a title="Tumblr" class="option1_16" style="background-position:-128px -16px" rel="nofollow" target="_blank" href="http://www.tumblr.com/share?v=3&amp;u=http%3A%2F%2Fwww.carlessanagustin.com%2F2015%2F08%2F20%2Ftutorial-gestion-de-configuracion-ansible-vagrant-jenkins%2F&amp;t=Tutorial%3A%20Gesti%C3%B3n%20de%20Configuraci%C3%B3n%20-%20Ansible%20%2B%20Vagrant%20%2B%20Jenkins&amp;s=Video%20tutorial%3A%20Proceso%20de%20creaci%C3%B3n%20de%20Playbooks%20de%20Ansible%20para%20la%20instalaci%C3%B3n%20autom%C3%A1tica%20de%20Jenkins%20CI%20en%20m%C3%A1quinas%20Ubuntu%20Linux.%20Primero%20realizo%20el%20proceso%20en%20una%20m%C3%A1quina%20local%20configurando%20Vagrant%20para%20luego%20pasar%20a%20un%20entorno%20remoto%20en%20Amazon%20Web%20Services%20%28AWS%29."></a></li></ul><div onmouseout="fixOnMouseOut(this,event,&#39;post-2554&#39;)" id="sociable-post-2554" style="display:none;">   
+
+    <div style="top: auto; left: auto; display: block;" id="sociable">
+
+
+
+		<div class="popup">
+
+			<div class="content">
+
+				<ul><li style="heigth:16px;width:16px"><a title="Myspace" class="option1_16" style="background-position:0px -16px" rel="nofollow" target="_blank" href="http://www.myspace.com/Modules/PostTo/Pages/?u=http%3A%2F%2Fwww.carlessanagustin.com%2F2015%2F08%2F20%2Ftutorial-gestion-de-configuracion-ansible-vagrant-jenkins%2F&amp;t=Tutorial%3A%20Gesti%C3%B3n%20de%20Configuraci%C3%B3n%20-%20Ansible%20%2B%20Vagrant%20%2B%20Jenkins"></a></li><li style="heigth:16px;width:16px"><a title="Delicious" class="option1_16" style="background-position:-16px 0px" rel="nofollow" target="_blank" href="http://delicious.com/post?url=http%3A%2F%2Fwww.carlessanagustin.com%2F2015%2F08%2F20%2Ftutorial-gestion-de-configuracion-ansible-vagrant-jenkins%2F&amp;title=Tutorial%3A%20Gesti%C3%B3n%20de%20Configuraci%C3%B3n%20-%20Ansible%20%2B%20Vagrant%20%2B%20Jenkins&amp;notes=Video%20tutorial%3A%20Proceso%20de%20creaci%C3%B3n%20de%20Playbooks%20de%20Ansible%20para%20la%20instalaci%C3%B3n%20autom%C3%A1tica%20de%20Jenkins%20CI%20en%20m%C3%A1quinas%20Ubuntu%20Linux.%20Primero%20realizo%20el%20proceso%20en%20una%20m%C3%A1quina%20local%20configurando%20Vagrant%20para%20luego%20pasar%20a%20un%20entorno%20remoto%20en%20Amazon%20Web%20Services%20%28AWS%29."></a></li><li style="heigth:16px;width:16px"><a title="Digg" class="option1_16" style="background-position:-32px 0px" rel="nofollow" target="_blank" href="http://digg.com/submit?phase=2&amp;url=http%3A%2F%2Fwww.carlessanagustin.com%2F2015%2F08%2F20%2Ftutorial-gestion-de-configuracion-ansible-vagrant-jenkins%2F&amp;title=Tutorial%3A%20Gesti%C3%B3n%20de%20Configuraci%C3%B3n%20-%20Ansible%20%2B%20Vagrant%20%2B%20Jenkins&amp;bodytext=Video%20tutorial%3A%20Proceso%20de%20creaci%C3%B3n%20de%20Playbooks%20de%20Ansible%20para%20la%20instalaci%C3%B3n%20autom%C3%A1tica%20de%20Jenkins%20CI%20en%20m%C3%A1quinas%20Ubuntu%20Linux.%20Primero%20realizo%20el%20proceso%20en%20una%20m%C3%A1quina%20local%20configurando%20Vagrant%20para%20luego%20pasar%20a%20un%20entorno%20remoto%20en%20Amazon%20Web%20Services%20%28AWS%29."></a></li><li style="heigth:16px;width:16px"><a title="Reddit" class="option1_16" style="background-position:-64px -16px" rel="nofollow" target="_blank" href="http://reddit.com/submit?url=http%3A%2F%2Fwww.carlessanagustin.com%2F2015%2F08%2F20%2Ftutorial-gestion-de-configuracion-ansible-vagrant-jenkins%2F&amp;title=Tutorial%3A%20Gesti%C3%B3n%20de%20Configuraci%C3%B3n%20-%20Ansible%20%2B%20Vagrant%20%2B%20Jenkins"></a></li><li style="heigth:16px;width:16px"><a title="StumbleUpon" class="option1_16" style="background-position:-112px -16px" rel="nofollow" target="_blank" href="http://www.stumbleupon.com/submit?url=http%3A%2F%2Fwww.carlessanagustin.com%2F2015%2F08%2F20%2Ftutorial-gestion-de-configuracion-ansible-vagrant-jenkins%2F&amp;title=Tutorial%3A%20Gesti%C3%B3n%20de%20Configuraci%C3%B3n%20-%20Ansible%20%2B%20Vagrant%20%2B%20Jenkins"></a></li><li style="heigth:16px;width:16px"><a title="Google Bookmarks" class="option1_16" style="background-position:-96px 0px" rel="nofollow" target="_blank" href="http://www.google.com/bookmarks/mark?op=edit&amp;bkmk=http%3A%2F%2Fwww.carlessanagustin.com%2F2015%2F08%2F20%2Ftutorial-gestion-de-configuracion-ansible-vagrant-jenkins%2F&amp;title=Tutorial%3A%20Gesti%C3%B3n%20de%20Configuraci%C3%B3n%20-%20Ansible%20%2B%20Vagrant%20%2B%20Jenkins&amp;annotation=Video%20tutorial%3A%20Proceso%20de%20creaci%C3%B3n%20de%20Playbooks%20de%20Ansible%20para%20la%20instalaci%C3%B3n%20autom%C3%A1tica%20de%20Jenkins%20CI%20en%20m%C3%A1quinas%20Ubuntu%20Linux.%20Primero%20realizo%20el%20proceso%20en%20una%20m%C3%A1quina%20local%20configurando%20Vagrant%20para%20luego%20pasar%20a%20un%20entorno%20remoto%20en%20Amazon%20Web%20Services%20%28AWS%29."></a></li><li style="heigth:16px;width:16px"><a title="HackerNews" class="option1_16" style="background-position:-128px 0px" rel="nofollow" target="_blank" href="http://news.ycombinator.com/submitlink?u=http%3A%2F%2Fwww.carlessanagustin.com%2F2015%2F08%2F20%2Ftutorial-gestion-de-configuracion-ansible-vagrant-jenkins%2F&amp;t=Tutorial%3A%20Gesti%C3%B3n%20de%20Configuraci%C3%B3n%20-%20Ansible%20%2B%20Vagrant%20%2B%20Jenkins"></a></li><li style="heigth:16px;width:16px"><a title="MSNReporter" class="option1_16" style="background-position:-176px 0px" rel="nofollow" target="_blank" href="http://reporter.es.msn.com/?fn=contribute&amp;Title=Tutorial%3A%20Gesti%C3%B3n%20de%20Configuraci%C3%B3n%20-%20Ansible%20%2B%20Vagrant%20%2B%20Jenkins&amp;URL=http%3A%2F%2Fwww.carlessanagustin.com%2F2015%2F08%2F20%2Ftutorial-gestion-de-configuracion-ansible-vagrant-jenkins%2F&amp;cat_id=6&amp;tag_id=31&amp;Remark=Video%20tutorial%3A%20Proceso%20de%20creaci%C3%B3n%20de%20Playbooks%20de%20Ansible%20para%20la%20instalaci%C3%B3n%20autom%C3%A1tica%20de%20Jenkins%20CI%20en%20m%C3%A1quinas%20Ubuntu%20Linux.%20Primero%20realizo%20el%20proceso%20en%20una%20m%C3%A1quina%20local%20configurando%20Vagrant%20para%20luego%20pasar%20a%20un%20entorno%20remoto%20en%20Amazon%20Web%20Services%20%28AWS%29."></a></li><li style="heigth:16px;width:16px"><a title="BlinkList" class="option1_16" style="background-position:0px 0px" rel="nofollow" target="_blank" href="http://www.blinklist.com/index.php?Action=Blink/addblink.php&amp;Url=http%3A%2F%2Fwww.carlessanagustin.com%2F2015%2F08%2F20%2Ftutorial-gestion-de-configuracion-ansible-vagrant-jenkins%2F&amp;Title=Tutorial%3A%20Gesti%C3%B3n%20de%20Configuraci%C3%B3n%20-%20Ansible%20%2B%20Vagrant%20%2B%20Jenkins"></a></li><li style="heigth:16px;width:16px"><a title="Sphinn" class="option1_16" style="background-position:-96px -16px" rel="nofollow" target="_blank" href="http://sphinn.com/index.php?c=post&amp;m=submit&amp;link=http%3A%2F%2Fwww.carlessanagustin.com%2F2015%2F08%2F20%2Ftutorial-gestion-de-configuracion-ansible-vagrant-jenkins%2F"></a></li><li style="heigth:16px;width:16px"><a title="Posterous" class="option1_16" style="background-position:-32px -16px" rel="nofollow" target="_blank" href="http://posterous.com/share?linkto=http%3A%2F%2Fwww.carlessanagustin.com%2F2015%2F08%2F20%2Ftutorial-gestion-de-configuracion-ansible-vagrant-jenkins%2F&amp;title=Tutorial%3A%20Gesti%C3%B3n%20de%20Configuraci%C3%B3n%20-%20Ansible%20%2B%20Vagrant%20%2B%20Jenkins&amp;selection=Video%20tutorial%3A%20Proceso%20de%20creaci%C3%B3n%20de%20Playbooks%20de%20Ansible%20para%20la%20instalaci%C3%B3n%20autom%C3%A1tica%20de%20Jenkins%20CI%20en%20m%C3%A1quinas%20Ubuntu%20Linux.%20Primero%20realizo%20el%20proceso%20en%20una%20m%C3%A1quina%20local%20configurando%20Vagrant%20para%20luego%20pasar%20a%20un%20entorno%20remoto%20en%20Amazon%20Web%20Services%20%28AWS%29."></a></li><li style="heigth:16px;width:16px"><a title="Google Reader" class="option1_16" style="background-position:-112px 0px" rel="nofollow" target="_blank" href="http://www.google.com/reader/link?url=http%3A%2F%2Fwww.carlessanagustin.com%2F2015%2F08%2F20%2Ftutorial-gestion-de-configuracion-ansible-vagrant-jenkins%2F&amp;title=Tutorial%3A%20Gesti%C3%B3n%20de%20Configuraci%C3%B3n%20-%20Ansible%20%2B%20Vagrant%20%2B%20Jenkins&amp;srcURL=http%3A%2F%2Fwww.carlessanagustin.com%2F2015%2F08%2F20%2Ftutorial-gestion-de-configuracion-ansible-vagrant-jenkins%2F&amp;srcTitle=carlessanagustin.com+viajando+por+la+vida%3B+fotograf%C3%ADa%2C+binario+y+otros+intereses"></a></li><li style="heigth:16px;width:16px"><a class="option1_16" style="cursor:pointer;background-position:-64px 0px" rel="nofollow" title="Add to favorites - doesn&#39;t work in Chrome" onclick="javascript:AddToFavorites();"></a></li><li style="heigth:16px;width:16px"><a style="cursor:poainter" rel="nofollow" onmouseover="more(this,&#39;post-2554&#39;)"><img src="./Tutorial_ Gestión de Configuración - Ansible + Vagrant + Jenkins _ carlessanagustin.com_files/more.png" title="Tumblr" alt="Tumblr"></a></li></ul>			
+
+			</div>        
+
+		  <a style="cursor:pointer" onclick="hide_sociable(&#39;post-2554&#39;,true)" class="close">
+
+		  <img onclick="hide_sociable(&#39;post-2554&#39;,true)" title="close" src="./Tutorial_ Gestión de Configuración - Ansible + Vagrant + Jenkins _ carlessanagustin.com_files/closelabel.png">
+
+		  </a>
+
+		</div>
+
+	</div> 
+
+  </div></div><div class="sociable" style="float:none"><ul class="clearfix"></ul></div><!-- End Sociable --><div class="yarpp-related">
+<h3>Entradas relacionadas:</h3>
+<div class="yarpp-thumbnails-horizontal">
+<a class="yarpp-thumbnail" href="http://www.carlessanagustin.com/2015/05/25/nginx-proxy-para-un-contenedor-jenkins/" title="Nginx proxy para un contenedor Jenkins">
+<img width="120" height="120" src="./Tutorial_ Gestión de Configuración - Ansible + Vagrant + Jenkins _ carlessanagustin.com_files/vagrant2docker2jenkins-small-120x120.jpg" class="attachment-yarpp-thumbnail wp-post-image" alt="vagrant2docker2jenkins-small"><span class="yarpp-thumbnail-title">Nginx proxy para un contenedor Jenkins</span></a>
+<a class="yarpp-thumbnail" href="http://www.carlessanagustin.com/2015/06/08/aprovisionamiento-de-contenedores-docker-con-ansible/" title="Aprovisionamiento de contenedores Docker con Ansible">
+<img width="120" height="120" src="./Tutorial_ Gestión de Configuración - Ansible + Vagrant + Jenkins _ carlessanagustin.com_files/ansible_docker-120x120.jpg" class="attachment-yarpp-thumbnail wp-post-image" alt="ansible_docker"><span class="yarpp-thumbnail-title">Aprovisionamiento de contenedores Docker con Ansible</span></a>
+<a class="yarpp-thumbnail" href="http://www.carlessanagustin.com/2015/05/21/mi-repositorio-ansible/" title="Mi repositorio Ansible">
+<img width="120" height="120" src="./Tutorial_ Gestión de Configuración - Ansible + Vagrant + Jenkins _ carlessanagustin.com_files/ansible-github_660x230-120x120.png" class="attachment-yarpp-thumbnail wp-post-image" alt="ansible-github"><span class="yarpp-thumbnail-title">Mi repositorio Ansible</span></a>
+<a class="yarpp-thumbnail" href="http://www.carlessanagustin.com/2014/11/04/configuracion-de-un-entorno-django-sobre-vagrant/" title="Configuración de un entorno Django sobre Vagrant">
+<img width="120" height="120" src="./Tutorial_ Gestión de Configuración - Ansible + Vagrant + Jenkins _ carlessanagustin.com_files/django-vagrant-120x120.png" class="attachment-yarpp-thumbnail wp-post-image" alt="Django over Vagrant"><span class="yarpp-thumbnail-title">Configuración de un entorno Django sobre Vagrant</span></a>
+</div>
+</div>
+ 
+                 <p>Etiquetas: <a href="http://www.carlessanagustin.com/tag/ansible/" rel="tag">ansible</a>, <a href="http://www.carlessanagustin.com/tag/aws/" rel="tag">aws</a>, <a href="http://www.carlessanagustin.com/tag/configuration-management/" rel="tag">configuration management</a>, <a href="http://www.carlessanagustin.com/tag/git/" rel="tag">git</a>, <a href="http://www.carlessanagustin.com/tag/github/" rel="tag">github</a>, <a href="http://www.carlessanagustin.com/tag/jenkins/" rel="tag">jenkins</a>, <a href="http://www.carlessanagustin.com/tag/sourcetree/" rel="tag">sourcetree</a>, <a href="http://www.carlessanagustin.com/tag/tutorial/" rel="tag">tutorial</a>, <a href="http://www.carlessanagustin.com/tag/ubuntu/" rel="tag">ubuntu</a>, <a href="http://www.carlessanagustin.com/tag/vagrant/" rel="tag">vagrant</a>, <a href="http://www.carlessanagustin.com/tag/virtualbox/" rel="tag">virtualBox</a></p>
+
+                
+                <div class="clear"></div>
+				
+
+			<!-- If comments are open, but there are no comments. -->
+
+	 	
+
+
+
+
+
+<div id="comment-form">
+
+	<h2>Dejar un comentario</h2>
+
+	<div class="cancel-comment-reply">
+		<a rel="nofollow" id="cancel-comment-reply-link" href="http://www.carlessanagustin.com/2015/08/20/tutorial-gestion-de-configuracion-ansible-vagrant-jenkins/#respond" style="display:none;">Clic para cancelar respuesta.</a>	</div>
+
+	
+	<form action="http://www.carlessanagustin.com/wp-comments-post.php" method="post" id="commentform">
+
+		
+				<input type="text" name="author" id="author" value="Nombre *" size="22" class="text-input" tabindex="1" aria-required="true" style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABHklEQVQ4EaVTO26DQBD1ohQWaS2lg9JybZ+AK7hNwx2oIoVf4UPQ0Lj1FdKktevIpel8AKNUkDcWMxpgSaIEaTVv3sx7uztiTdu2s/98DywOw3Dued4Who/M2aIx5lZV1aEsy0+qiwHELyi+Ytl0PQ69SxAxkWIA4RMRTdNsKE59juMcuZd6xIAFeZ6fGCdJ8kY4y7KAuTRNGd7jyEBXsdOPE3a0QGPsniOnnYMO67LgSQN9T41F2QGrQRRFCwyzoIF2qyBuKKbcOgPXdVeY9rMWgNsjf9ccYesJhk3f5dYT1HX9gR0LLQR30TnjkUEcx2uIuS4RnI+aj6sJR0AM8AaumPaM/rRehyWhXqbFAA9kh3/8/NvHxAYGAsZ/il8IalkCLBfNVAAAAABJRU5ErkJggg==&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%;">
+
+				<input type="text" name="email" id="email" value="Correo electrónico *" size="22" class="text-input" tabindex="2" aria-required="true">
+
+			<input type="text" name="url" id="url" value="Web *" size="22" class="text-input" tabindex="3">
+		
+  
+		
+	
+			<textarea name="comment" id="comment" cols="58" rows="10" tabindex="4" class="comment-input">Comment</textarea>
+	
+	   <div class="clear"></div>	
+			<input name="submit" type="submit" id="submit" tabindex="5" value="Enviar comentario" class="comment-submit">
+			<input type="hidden" name="comment_post_ID" value="2554" id="comment_post_ID">
+<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+	
+		
+		<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="b142bdd392"></p><p style="display: none;"></p>
+	<input type="hidden" id="ak_js" name="ak_js" value="1571919194183"></form>
+ </div>
+
+		
+
+ 
+                </div>
+
+
+                
+                
+       </div>
+       
+		       
+       <div class="post-nav">
+               <div class="post-prev"><a href="http://www.carlessanagustin.com/2015/07/13/adoptar-devops/" rel="prev">Adoptar DevOps?</a> </div>
+			   <div class="post-next"><a href="http://www.carlessanagustin.com/2015/09/10/consultoria-en-immfly-de-integracion-continua-y-devops/" rel="next">Consultoria en Immfly de Integración Continua y DevOps</a></div>
+        </div>      
+   
+       
+       
+       
+  
+ 
+
+	
+
+     
+   <div id="footer-area">
+			<div id="rss-3" class="widget widget_rss"><div class="widget-copy"><h3><a class="rsswidget" href="https://delicious.com/v2/rss/carlessanagustin"><img style="border:0" width="14" height="14" src="./Tutorial_ Gestión de Configuración - Ansible + Vagrant + Jenkins _ carlessanagustin.com_files/rss.png" alt="RSS"></a> <a class="rsswidget" href="http://www.carlessanagustin.com/2015/08/20/tutorial-gestion-de-configuracion-ansible-vagrant-jenkins/">Delicious</a></h3></div></div><div id="search-2" class="widget widget_search"><div class="widget-copy"><h3>Búsqueda – Search</h3><form role="search" method="get" id="searchform" class="searchform" action="http://www.carlessanagustin.com/">
+				<div>
+					<label class="screen-reader-text" for="s">Buscar:</label>
+					<input type="text" value="" name="s" id="s">
+					<input type="submit" id="searchsubmit" value="Buscar">
+				</div>
+			</form></div></div><style type="text/css">
+.qtranxs_widget ul { margin: 0; }
+.qtranxs_widget ul li
+{
+display: inline; /* horizontal list, use "list-item" or other appropriate value for vertical list */
+list-style-type: none; /* use "initial" or other to enable bullets */
+margin: 0 5px 0 0; /* adjust spacing between items */
+opacity: 0.5;
+-o-transition: 1s ease opacity;
+-moz-transition: 1s ease opacity;
+-webkit-transition: 1s ease opacity;
+transition: 1s ease opacity;
+}
+//.qtranxs_widget ul li span { margin: 0 5px 0 0; } /* other way to control spacing */
+.qtranxs_widget ul li.active { opacity: 0.8; }
+.qtranxs_widget ul li:hover { opacity: 1; }
+.qtranxs_widget img { box-shadow: none; vertical-align: middle; }
+.qtranxs_flag { height:12px; width:18px; display:block; }
+.qtranxs_flag_and_text { padding-left:20px; }
+.qtranxs_flag span { display:none; }
+</style>
+<div id="qtranslate-3" class="widget qtranxs_widget"><div class="widget-copy"><h3>idioma:</h3>
+<ul class="qtranxs_language_chooser" id="qtranslate-3-chooser">
+<li class="lang-es active"><a href="http://www.carlessanagustin.com/es/2015/08/20/tutorial-gestion-de-configuracion-ansible-vagrant-jenkins/" hreflang="es" title="Español" class="qtranxs_image qtranxs_image_es"><img src="./Tutorial_ Gestión de Configuración - Ansible + Vagrant + Jenkins _ carlessanagustin.com_files/es.png"><span style="display:none">Español</span></a></li>
+<li class="lang-en"><a href="http://www.carlessanagustin.com/en/2015/08/20/tutorial-gestion-de-configuracion-ansible-vagrant-jenkins/" hreflang="en" title="English" class="qtranxs_image qtranxs_image_en"><img src="./Tutorial_ Gestión de Configuración - Ansible + Vagrant + Jenkins _ carlessanagustin.com_files/gb.png"><span style="display:none">English</span></a></li>
+</ul><div class="qtranxs_widget_end"></div>
+</div></div><div id="tag_cloud-2" class="widget widget_tag_cloud"><div class="widget-copy"><h3>Etiquetas – Tags</h3><div class="tagcloud"><a href="http://www.carlessanagustin.com/tag/agile/" class="tag-link-261" title="7 temas" style="font-size: 11.620689655172pt;">agile</a>
+<a href="http://www.carlessanagustin.com/tag/ansible/" class="tag-link-292" title="6 temas" style="font-size: 11.01724137931pt;">ansible</a>
+<a href="http://www.carlessanagustin.com/tag/barcelona/" class="tag-link-260" title="5 temas" style="font-size: 10.172413793103pt;">barcelona</a>
+<a href="http://www.carlessanagustin.com/tag/buildbot/" class="tag-link-277" title="4 temas" style="font-size: 9.2068965517241pt;">buildbot</a>
+<a href="http://www.carlessanagustin.com/tag/cheat-sheet/" class="tag-link-90" title="5 temas" style="font-size: 10.172413793103pt;">cheat sheet</a>
+<a href="http://www.carlessanagustin.com/tag/chennai/" class="tag-link-58" title="4 temas" style="font-size: 9.2068965517241pt;">chennai</a>
+<a href="http://www.carlessanagustin.com/tag/ci/" class="tag-link-278" title="5 temas" style="font-size: 10.172413793103pt;">CI</a>
+<a href="http://www.carlessanagustin.com/tag/configuration-management/" class="tag-link-273" title="5 temas" style="font-size: 10.172413793103pt;">configuration management</a>
+<a href="http://www.carlessanagustin.com/tag/continuous-integration/" class="tag-link-287" title="4 temas" style="font-size: 9.2068965517241pt;">continuous integration</a>
+<a href="http://www.carlessanagustin.com/tag/curso/" class="tag-link-248" title="5 temas" style="font-size: 10.172413793103pt;">curso</a>
+<a href="http://www.carlessanagustin.com/tag/delhi/" class="tag-link-64" title="3 temas" style="font-size: 8pt;">delhi</a>
+<a href="http://www.carlessanagustin.com/tag/devops/" class="tag-link-257" title="12 temas" style="font-size: 14.155172413793pt;">devops</a>
+<a href="http://www.carlessanagustin.com/tag/ecommerce/" class="tag-link-212" title="4 temas" style="font-size: 9.2068965517241pt;">ecommerce</a>
+<a href="http://www.carlessanagustin.com/tag/evento/" class="tag-link-9" title="11 temas" style="font-size: 13.793103448276pt;">evento</a>
+<a href="http://www.carlessanagustin.com/tag/fotografia/" class="tag-link-12" title="20 temas" style="font-size: 16.689655172414pt;">fotografia</a>
+<a href="http://www.carlessanagustin.com/tag/freelance/" class="tag-link-291" title="19 temas" style="font-size: 16.448275862069pt;">freelance</a>
+<a href="http://www.carlessanagustin.com/tag/git/" class="tag-link-246" title="6 temas" style="font-size: 11.01724137931pt;">git</a>
+<a href="http://www.carlessanagustin.com/tag/india/" class="tag-link-14" title="28 temas" style="font-size: 18.379310344828pt;">india</a>
+<a href="http://www.carlessanagustin.com/tag/interactivity/" class="tag-link-207" title="6 temas" style="font-size: 11.01724137931pt;">interactivity</a>
+<a href="http://www.carlessanagustin.com/tag/it/" class="tag-link-15" title="14 temas" style="font-size: 15pt;">it</a>
+<a href="http://www.carlessanagustin.com/tag/javascript/" class="tag-link-81" title="3 temas" style="font-size: 8pt;">javascript</a>
+<a href="http://www.carlessanagustin.com/tag/jenkins/" class="tag-link-286" title="4 temas" style="font-size: 9.2068965517241pt;">jenkins</a>
+<a href="http://www.carlessanagustin.com/tag/lightroom/" class="tag-link-18" title="3 temas" style="font-size: 8pt;">lightroom</a>
+<a href="http://www.carlessanagustin.com/tag/linux/" class="tag-link-19" title="7 temas" style="font-size: 11.620689655172pt;">linux</a>
+<a href="http://www.carlessanagustin.com/tag/mysql/" class="tag-link-25" title="3 temas" style="font-size: 8pt;">mysql</a>
+<a href="http://www.carlessanagustin.com/tag/nepal/" class="tag-link-26" title="5 temas" style="font-size: 10.172413793103pt;">nepal</a>
+<a href="http://www.carlessanagustin.com/tag/photo/" class="tag-link-89" title="3 temas" style="font-size: 8pt;">photo</a>
+<a href="http://www.carlessanagustin.com/tag/photoshop/" class="tag-link-30" title="7 temas" style="font-size: 11.620689655172pt;">photoshop</a>
+<a href="http://www.carlessanagustin.com/tag/prestashop/" class="tag-link-218" title="5 temas" style="font-size: 10.172413793103pt;">prestashop</a>
+<a href="http://www.carlessanagustin.com/tag/python/" class="tag-link-37" title="6 temas" style="font-size: 11.01724137931pt;">python</a>
+<a href="http://www.carlessanagustin.com/tag/reflexiones/" class="tag-link-39" title="28 temas" style="font-size: 18.379310344828pt;">reflexiones</a>
+<a href="http://www.carlessanagustin.com/tag/responsive/" class="tag-link-74" title="7 temas" style="font-size: 11.620689655172pt;">responsive</a>
+<a href="http://www.carlessanagustin.com/tag/scrum/" class="tag-link-263" title="4 temas" style="font-size: 9.2068965517241pt;">scrum</a>
+<a href="http://www.carlessanagustin.com/tag/server/" class="tag-link-42" title="3 temas" style="font-size: 8pt;">server</a>
+<a href="http://www.carlessanagustin.com/tag/shell/" class="tag-link-43" title="6 temas" style="font-size: 11.01724137931pt;">shell</a>
+<a href="http://www.carlessanagustin.com/tag/taller/" class="tag-link-288" title="6 temas" style="font-size: 11.01724137931pt;">taller</a>
+<a href="http://www.carlessanagustin.com/tag/teach/" class="tag-link-247" title="5 temas" style="font-size: 10.172413793103pt;">teach</a>
+<a href="http://www.carlessanagustin.com/tag/tips/" class="tag-link-217" title="3 temas" style="font-size: 8pt;">tips</a>
+<a href="http://www.carlessanagustin.com/tag/uncategorized/" class="tag-link-49" title="57 temas" style="font-size: 22pt;">Uncategorized</a>
+<a href="http://www.carlessanagustin.com/tag/upc/" class="tag-link-258" title="5 temas" style="font-size: 10.172413793103pt;">upc</a>
+<a href="http://www.carlessanagustin.com/tag/ux/" class="tag-link-85" title="8 temas" style="font-size: 12.224137931034pt;">ux</a>
+<a href="http://www.carlessanagustin.com/tag/vagrant/" class="tag-link-271" title="5 temas" style="font-size: 10.172413793103pt;">vagrant</a>
+<a href="http://www.carlessanagustin.com/tag/voluntariado/" class="tag-link-53" title="5 temas" style="font-size: 10.172413793103pt;">voluntariado</a>
+<a href="http://www.carlessanagustin.com/tag/wordpress/" class="tag-link-86" title="4 temas" style="font-size: 9.2068965517241pt;">wordpress</a>
+<a href="http://www.carlessanagustin.com/tag/workshop/" class="tag-link-289" title="6 temas" style="font-size: 11.01724137931pt;">workshop</a></div>
+</div></div>        </div><!-- // footer area -->   
+     
+       
+ <div id="copyright">
+ <p><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_US"><img alt="Creative Commons License" style="border-width:0" src="./Tutorial_ Gestión de Configuración - Ansible + Vagrant + Jenkins _ carlessanagustin.com_files/80x15.png"></a> © 2019 carlessanagustin.com&nbsp;|&nbsp;<a href="http://www.carlessanagustin.com/en/aviso-legal/" title="Legal Note">Legal Note</a>&nbsp;|&nbsp;Developed by <a href="http://www.carlessanagustin.com/en/sobre-mi/" title="Developer: Carles San Agustin">&nbsp;Carles San Agustin</a> from original theme 
+ <a href="http://www.eleventhemes.com/" title="Eleven WordPress Themes" target="_blank">Gridly</a></p>
+ </div><!-- // copyright --> 
+</div><!-- // wrap -->   
+<!-- ngg_resource_manager_marker --><script type="text/javascript" src="./Tutorial_ Gestión de Configuración - Ansible + Vagrant + Jenkins _ carlessanagustin.com_files/jquery.masonry.min.js.descarga"></script>
+<script type="text/javascript" src="./Tutorial_ Gestión de Configuración - Ansible + Vagrant + Jenkins _ carlessanagustin.com_files/functions.js.descarga"></script>
+<script type="text/javascript" src="./Tutorial_ Gestión de Configuración - Ansible + Vagrant + Jenkins _ carlessanagustin.com_files/jquery.form.min.js.descarga"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var _wpcf7 = {"loaderUrl":"http:\/\/www.carlessanagustin.com\/wp-content\/plugins\/contact-form-7\/images\/ajax-loader.gif","sending":"Enviando..."};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Tutorial_ Gestión de Configuración - Ansible + Vagrant + Jenkins _ carlessanagustin.com_files/scripts.js.descarga"></script>
+<script type="text/javascript" src="./Tutorial_ Gestión de Configuración - Ansible + Vagrant + Jenkins _ carlessanagustin.com_files/comment-reply.min.js.descarga"></script>
+<script class="javascript" src="./Tutorial_ Gestión de Configuración - Ansible + Vagrant + Jenkins _ carlessanagustin.com_files/shCore.js.descarga"></script>
+<script class="javascript" src="./Tutorial_ Gestión de Configuración - Ansible + Vagrant + Jenkins _ carlessanagustin.com_files/shBrushCSharp.js.descarga"></script>
+<script class="javascript" src="./Tutorial_ Gestión de Configuración - Ansible + Vagrant + Jenkins _ carlessanagustin.com_files/shBrushPhp.js.descarga"></script>
+<script class="javascript" src="./Tutorial_ Gestión de Configuración - Ansible + Vagrant + Jenkins _ carlessanagustin.com_files/shBrushJScript.js.descarga"></script>
+<script class="javascript" src="./Tutorial_ Gestión de Configuración - Ansible + Vagrant + Jenkins _ carlessanagustin.com_files/shBrushJava.js.descarga"></script>
+<script class="javascript" src="./Tutorial_ Gestión de Configuración - Ansible + Vagrant + Jenkins _ carlessanagustin.com_files/shBrushVb.js.descarga"></script>
+<script class="javascript" src="./Tutorial_ Gestión de Configuración - Ansible + Vagrant + Jenkins _ carlessanagustin.com_files/shBrushSql.js.descarga"></script>
+<script class="javascript" src="./Tutorial_ Gestión de Configuración - Ansible + Vagrant + Jenkins _ carlessanagustin.com_files/shBrushXml.js.descarga"></script>
+<script class="javascript" src="./Tutorial_ Gestión de Configuración - Ansible + Vagrant + Jenkins _ carlessanagustin.com_files/shBrushDelphi.js.descarga"></script>
+<script class="javascript" src="./Tutorial_ Gestión de Configuración - Ansible + Vagrant + Jenkins _ carlessanagustin.com_files/shBrushPython.js.descarga"></script>
+<script class="javascript" src="./Tutorial_ Gestión de Configuración - Ansible + Vagrant + Jenkins _ carlessanagustin.com_files/shBrushRuby.js.descarga"></script>
+<script class="javascript" src="./Tutorial_ Gestión de Configuración - Ansible + Vagrant + Jenkins _ carlessanagustin.com_files/shBrushCss.js.descarga"></script>
+<script class="javascript" src="./Tutorial_ Gestión de Configuración - Ansible + Vagrant + Jenkins _ carlessanagustin.com_files/shBrushCpp.js.descarga"></script>
+<script class="javascript">
+dp.SyntaxHighlighter.ClipboardSwf = 'http://www.carlessanagustin.com/wp-content/plugins/google-syntax-highlighter/Scripts/clipboard.swf';
+dp.SyntaxHighlighter.HighlightAll('code');
+</script>
+<script type="text/javascript" src="./Tutorial_ Gestión de Configuración - Ansible + Vagrant + Jenkins _ carlessanagustin.com_files/form.js.descarga"></script>
+
+
+
+</body></html>
