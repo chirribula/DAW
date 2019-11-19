@@ -1,0 +1,351 @@
+.landing-tokens-item .landing-tokens-item-title a,
+.landing-tokens-item .token-initials a,
+.landing-tokens-item .token-initials {
+  color: #1599b5;
+}
+
+.landing-tokens-item svg {
+  fill: #1599b5;
+}
+
+.dark-blue-color .landing-tokens-item-title a,
+.dark-blue-color .token-initials a,
+.dark-blue-color .token-initials {
+  color: #1d2f46;
+}
+
+.dark-blue-color svg {
+  fill: #1d2f46;
+}
+
+.payment-page-item.dark-blue-color a {
+  color: #1d2f46;
+  border-color: #1d2f46;
+}
+
+.page-hero-bg-dark-blue-color {
+  background-image: linear-gradient(rgba(29,47,70,0.5), rgba(29,47,70,0.5)), url('/themes/custom/scrumorg/assets/images/landing-tokens-bg-solid.png');
+}
+
+.color-scheme-dark-blue-color .assessment-banner-wrapper, .color-scheme-dark-blue-color .assessment-details-wrapper {
+  background-image: linear-gradient(rgba(29,47,70,0.63), rgba(29,47,70,0.63)), url('/themes/custom/scrumorg/assets/images/landing-tokens-bg-solid.png');
+}
+
+.color-scheme-dark-blue-color .assessment-text-ribbon {
+  color: #1d2f46;
+}
+
+.color-scheme-dark-blue-color .assessment-text-ribbon svg {
+  fill: #1d2f46;
+}
+
+.dark-orange-color .landing-tokens-item-title a,
+.dark-orange-color .token-initials a,
+.dark-orange-color .token-initials {
+  color: #f58200;
+}
+
+.dark-orange-color svg {
+  fill: #f58200;
+}
+
+.payment-page-item.dark-orange-color a {
+  color: #f58200;
+  border-color: #f58200;
+}
+
+.page-hero-bg-dark-orange-color {
+  background-image: linear-gradient(rgba(245,130,0,0.5), rgba(245,130,0,0.5)), url('/themes/custom/scrumorg/assets/images/landing-tokens-bg-solid.png');
+}
+
+.color-scheme-dark-orange-color .assessment-banner-wrapper, .color-scheme-dark-orange-color .assessment-details-wrapper {
+  background-image: linear-gradient(rgba(245,130,0,0.63), rgba(245,130,0,0.63)), url('/themes/custom/scrumorg/assets/images/landing-tokens-bg-solid.png');
+}
+
+.color-scheme-dark-orange-color .assessment-text-ribbon {
+  color: #f58200;
+}
+
+.color-scheme-dark-orange-color .assessment-text-ribbon svg {
+  fill: #f58200;
+}
+
+.purple-color .landing-tokens-item-title a,
+.purple-color .token-initials a,
+.purple-color .token-initials {
+  color: #6b589f;
+}
+
+.purple-color svg {
+  fill: #6b589f;
+}
+
+.payment-page-item.purple-color a {
+  color: #6b589f;
+  border-color: #6b589f;
+}
+
+.page-hero-bg-purple-color {
+  background-image: linear-gradient(rgba(107,88,159,0.5), rgba(107,88,159,0.5)), url('/themes/custom/scrumorg/assets/images/landing-tokens-bg-solid.png');
+}
+
+.color-scheme-purple-color .assessment-banner-wrapper, .color-scheme-purple-color .assessment-details-wrapper {
+  background-image: linear-gradient(rgba(107,88,159,0.63), rgba(107,88,159,0.63)), url('/themes/custom/scrumorg/assets/images/landing-tokens-bg-solid.png');
+}
+
+.color-scheme-purple-color .assessment-text-ribbon {
+  color: #6b589f;
+}
+
+.color-scheme-purple-color .assessment-text-ribbon svg {
+  fill: #6b589f;
+}
+
+.pal-color .landing-tokens-item-title a,
+.pal-color .token-initials a,
+.pal-color .token-initials {
+  color: #097151;
+}
+
+.pal-color svg {
+  fill: #097151;
+}
+
+.payment-page-item.pal-color a {
+  color: #097151;
+  border-color: #097151;
+}
+
+.page-hero-bg-pal-color {
+  background-image: linear-gradient(rgba(9,113,81,0.5), rgba(9,113,81,0.5)), url('/themes/custom/scrumorg/assets/images/landing-tokens-bg-solid.png');
+}
+
+.color-scheme-pal-color .assessment-banner-wrapper, .color-scheme-pal-color .assessment-details-wrapper {
+  background-image: linear-gradient(rgba(9,113,81,0.63), rgba(9,113,81,0.63)), url('/themes/custom/scrumorg/assets/images/landing-tokens-bg-solid.png');
+}
+
+.color-scheme-pal-color .assessment-text-ribbon {
+  color: #097151;
+}
+
+.color-scheme-pal-color .assessment-text-ribbon svg {
+  fill: #097151;
+}
+
+.psd-color .landing-tokens-item-title a,
+.psd-color .token-initials a,
+.psd-color .token-initials {
+  color: #d0542c;
+}
+
+.psd-color svg {
+  fill: #d0542c;
+}
+
+.payment-page-item.psd-color a {
+  color: #d0542c;
+  border-color: #d0542c;
+}
+
+.page-hero-bg-psd-color {
+  background-image: linear-gradient(rgba(208,84,44,0.5), rgba(208,84,44,0.5)), url('/themes/custom/scrumorg/assets/images/landing-tokens-bg-solid.png');
+}
+
+.color-scheme-psd-color .assessment-banner-wrapper, .color-scheme-psd-color .assessment-details-wrapper {
+  background-image: linear-gradient(rgba(208,84,44,0.63), rgba(208,84,44,0.63)), url('/themes/custom/scrumorg/assets/images/landing-tokens-bg-solid.png');
+}
+
+.color-scheme-psd-color .assessment-text-ribbon {
+  color: #d0542c;
+}
+
+.color-scheme-psd-color .assessment-text-ribbon svg {
+  fill: #d0542c;
+}
+
+.psf-color .landing-tokens-item-title a,
+.psf-color .token-initials a,
+.psf-color .token-initials {
+  color: #737156;
+}
+
+.psf-color svg {
+  fill: #737156;
+}
+
+.payment-page-item.psf-color a {
+  color: #737156;
+  border-color: #737156;
+}
+
+.page-hero-bg-psf-color {
+  background-image: linear-gradient(rgba(115,113,86,0.5), rgba(115,113,86,0.5)), url('/themes/custom/scrumorg/assets/images/landing-tokens-bg-solid.png');
+}
+
+.color-scheme-psf-color .assessment-banner-wrapper, .color-scheme-psf-color .assessment-details-wrapper {
+  background-image: linear-gradient(rgba(115,113,86,0.63), rgba(115,113,86,0.63)), url('/themes/custom/scrumorg/assets/images/landing-tokens-bg-solid.png');
+}
+
+.color-scheme-psf-color .assessment-text-ribbon {
+  color: #737156;
+}
+
+.color-scheme-psf-color .assessment-text-ribbon svg {
+  fill: #737156;
+}
+
+.psk-color .landing-tokens-item-title a,
+.psk-color .token-initials a,
+.psk-color .token-initials {
+  color: #65073a;
+}
+
+.psk-color svg {
+  fill: #65073a;
+}
+
+.payment-page-item.psk-color a {
+  color: #65073a;
+  border-color: #65073a;
+}
+
+.page-hero-bg-psk-color {
+  background-image: linear-gradient(rgba(101,7,58,0.5), rgba(101,7,58,0.5)), url('/themes/custom/scrumorg/assets/images/landing-tokens-bg-solid.png');
+}
+
+.color-scheme-psk-color .assessment-banner-wrapper, .color-scheme-psk-color .assessment-details-wrapper {
+  background-image: linear-gradient(rgba(101,7,58,0.63), rgba(101,7,58,0.63)), url('/themes/custom/scrumorg/assets/images/landing-tokens-bg-solid.png');
+}
+
+.color-scheme-psk-color .assessment-text-ribbon {
+  color: #65073a;
+}
+
+.color-scheme-psk-color .assessment-text-ribbon svg {
+  fill: #65073a;
+}
+
+.psm-color .landing-tokens-item-title a,
+.psm-color .token-initials a,
+.psm-color .token-initials {
+  color: #3a7c9a;
+}
+
+.psm-color svg {
+  fill: #3a7c9a;
+}
+
+.payment-page-item.psm-color a {
+  color: #3a7c9a;
+  border-color: #3a7c9a;
+}
+
+.page-hero-bg-psm-color {
+  background-image: linear-gradient(rgba(58,124,154,0.5), rgba(58,124,154,0.5)), url('/themes/custom/scrumorg/assets/images/landing-tokens-bg-solid.png');
+}
+
+.color-scheme-psm-color .assessment-banner-wrapper, .color-scheme-psm-color .assessment-details-wrapper {
+  background-image: linear-gradient(rgba(58,124,154,0.63), rgba(58,124,154,0.63)), url('/themes/custom/scrumorg/assets/images/landing-tokens-bg-solid.png');
+}
+
+.color-scheme-psm-color .assessment-text-ribbon {
+  color: #3a7c9a;
+}
+
+.color-scheme-psm-color .assessment-text-ribbon svg {
+  fill: #3a7c9a;
+}
+
+.pspo-color .landing-tokens-item-title a,
+.pspo-color .token-initials a,
+.pspo-color .token-initials {
+  color: #7fa23e;
+}
+
+.pspo-color svg {
+  fill: #7fa23e;
+}
+
+.payment-page-item.pspo-color a {
+  color: #7fa23e;
+  border-color: #7fa23e;
+}
+
+.page-hero-bg-pspo-color {
+  background-image: linear-gradient(rgba(127,162,62,0.5), rgba(127,162,62,0.5)), url('/themes/custom/scrumorg/assets/images/landing-tokens-bg-solid.png');
+}
+
+.color-scheme-pspo-color .assessment-banner-wrapper, .color-scheme-pspo-color .assessment-details-wrapper {
+  background-image: linear-gradient(rgba(127,162,62,0.63), rgba(127,162,62,0.63)), url('/themes/custom/scrumorg/assets/images/landing-tokens-bg-solid.png');
+}
+
+.color-scheme-pspo-color .assessment-text-ribbon {
+  color: #7fa23e;
+}
+
+.color-scheme-pspo-color .assessment-text-ribbon svg {
+  fill: #7fa23e;
+}
+
+.psu-color .landing-tokens-item-title a,
+.psu-color .token-initials a,
+.psu-color .token-initials {
+  color: #e61d6a;
+}
+
+.psu-color svg {
+  fill: #e61d6a;
+}
+
+.payment-page-item.psu-color a {
+  color: #e61d6a;
+  border-color: #e61d6a;
+}
+
+.page-hero-bg-psu-color {
+  background-image: linear-gradient(rgba(230,29,106,0.5), rgba(230,29,106,0.5)), url('/themes/custom/scrumorg/assets/images/landing-tokens-bg-solid.png');
+}
+
+.color-scheme-psu-color .assessment-banner-wrapper, .color-scheme-psu-color .assessment-details-wrapper {
+  background-image: linear-gradient(rgba(230,29,106,0.63), rgba(230,29,106,0.63)), url('/themes/custom/scrumorg/assets/images/landing-tokens-bg-solid.png');
+}
+
+.color-scheme-psu-color .assessment-text-ribbon {
+  color: #e61d6a;
+}
+
+.color-scheme-psu-color .assessment-text-ribbon svg {
+  fill: #e61d6a;
+}
+
+.sps-color .landing-tokens-item-title a,
+.sps-color .token-initials a,
+.sps-color .token-initials {
+  color: #1599b5;
+}
+
+.sps-color svg {
+  fill: #1599b5;
+}
+
+.payment-page-item.sps-color a {
+  color: #1599b5;
+  border-color: #1599b5;
+}
+
+.page-hero-bg-sps-color {
+  background-image: linear-gradient(rgba(21,153,181,0.5), rgba(21,153,181,0.5)), url('/themes/custom/scrumorg/assets/images/landing-tokens-bg-solid.png');
+}
+
+.color-scheme-sps-color .assessment-banner-wrapper, .color-scheme-sps-color .assessment-details-wrapper {
+  background-image: linear-gradient(rgba(21,153,181,0.63), rgba(21,153,181,0.63)), url('/themes/custom/scrumorg/assets/images/landing-tokens-bg-solid.png');
+}
+
+.color-scheme-sps-color .assessment-text-ribbon {
+  color: #1599b5;
+}
+
+.color-scheme-sps-color .assessment-text-ribbon svg {
+  fill: #1599b5;
+}
+
